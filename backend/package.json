@@ -1,0 +1,22 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backend for the cheapest flight finder",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sanmijingbrahma/cheapestFlightFinder.git"
+  },
+  "author": "san",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sanmijingbrahma/cheapestFlightFinder/issues"
+  },
+  "homepage": "https://github.com/sanmijingbrahma/cheapestFlightFinder#readme",
+  "dependencies": {
+    "express": "^4.21.1"
+  }
+}
