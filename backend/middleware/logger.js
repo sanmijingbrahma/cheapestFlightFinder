@@ -1,5 +1,6 @@
 function logger(req,res,next){
-    console.log(`${req.method}, ${req.url}`);
+    const time = new Date().toISOString();
+    console.log(`${req.method} : ${req.url} at ${time}`);
     next();
 }
 
