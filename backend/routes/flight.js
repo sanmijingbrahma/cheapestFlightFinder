@@ -18,7 +18,7 @@ router.get('/',async (req,res,next)=>{
 router.get("/:id",async (req,res,next)=>{
     try {
         const flightNumber = req.params.id;
-        const flight =  Flight.findOne({flightNumber:flightNumber});
+        const flight = await Flight.findOne({flightNumber:flightNumber});
         res.json(flight);
     } catch (error) {
        next(error);

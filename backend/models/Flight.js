@@ -8,7 +8,7 @@ const flightSchema = new mongoose.Schema(
             required:true,
         },
         flightNumber:{
-            type:Number,
+            type:String,
             required:true,
             unique:true,
         },
@@ -21,16 +21,17 @@ const flightSchema = new mongoose.Schema(
             required:true,
         },
         departureTime:{
-            type:Date,
+            type:String,
             required:true,
         },
         arrivalTime:{
-            type:Date,
+            type:String,
             required:true,
         },
         price:{
             type:Number,
             required:true,
+            min:[100,"Price must be at least 100"],
         },
 
     }
