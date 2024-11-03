@@ -1,20 +1,39 @@
 const express = require('express')
+const Flight = require('../models/Flight')
 
 // allows to define routes in seperate file
 const router = express.Router(); 
 
 
-router.get('/',(req,res)=>{
-    res.json({message:"Fetching all the Flights"});
+router.get('/',async (req,res,next)=>{
+    try {
+        const flights = await Flight.find();
+        res.json(flights);
+    } catch (error) {
+        next(error);
+    }
+
 })
 
-router.get("/:id",(req,res)=>{
-    const flightID = req.params.id;
-    res.json({message:`fetching data related to ${flightID}`})
+router.get("/:id",async (req,res,next)=>{
+    try {
+        const flightNumber = req.params.id;
+        const flight =  Flight.findOne({flightNumber:flightNumber});
+        res.json(flight);
+    } catch (error) {
+       next(error);
+    }
 })
 
-router.post('/',(req,res)=>{
-    res.json({message:"Adding a new flight"});
+router.post('/',async (req,res,next)=>{
+    try {
+        const flightData = req.body;
+        const newFlight = new Flight(flightData);
+        const savedFlight = await newFlight.save();
+        res.status(201).send(savedFlight);
+    } catch (error) {
+        next(error);
+    }
 })
 
 
