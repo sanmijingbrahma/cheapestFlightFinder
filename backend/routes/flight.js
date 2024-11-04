@@ -54,7 +54,7 @@ router.post('/',async (req,res,next)=>{
 
 router.delete("/:id",async(req,res,next)=>{
     try {
-        const deletedFlight = await Flight.findByIdAndUpdate(req.params.id);
+        const deletedFlight = await Flight.findOneAndDelete(req.params.id);
         if(!deletedFlight){
             res.status(404).json({message:"Flight not Found."})
         }else{
