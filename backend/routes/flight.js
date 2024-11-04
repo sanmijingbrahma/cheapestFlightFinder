@@ -50,4 +50,18 @@ router.post('/',async (req,res,next)=>{
 })
 
 
+router.delete("/:id",async(req,res,next)=>{
+    try {
+        const deletedFlight = await Flight.findByIdAndDelete(req.params.id);
+        if(!deletedFlight){
+            res.status(404).json({message:"Flight not Found."})
+        }else{
+            res.json(deletedFlight);
+        }
+    } catch (error) {
+       next(error); 
+    }
+})
+
+
 module.exports = router;
