@@ -4,7 +4,7 @@ const Flight = require('../models/Flight')
 // allows to define routes in seperate file
 const router = express.Router(); 
 
-
+// list all the flights
 router.get('/',async (req,res,next)=>{
     try {
         const flights = await Flight.find();
@@ -15,6 +15,7 @@ router.get('/',async (req,res,next)=>{
 
 })
 
+// get a flight by id
 router.get("/:id",async (req,res,next)=>{
     try {
         const flightNumber = req.params.id;
@@ -25,6 +26,7 @@ router.get("/:id",async (req,res,next)=>{
     }
 })
 
+// Update a flight
 router.put("/:id",async (req,res,next)=>{
     try {
         const updatedFlight = await Flight.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true});
@@ -38,6 +40,7 @@ router.put("/:id",async (req,res,next)=>{
     }
 })
 
+// Add a new flight
 router.post('/',async (req,res,next)=>{
     try {
         const flightData = req.body;
@@ -49,7 +52,7 @@ router.post('/',async (req,res,next)=>{
     }
 })
 
-
+// route to delete a flight based on it's id
 router.delete("/:id",async(req,res,next)=>{
     try {
         const deletedFlight = await Flight.findByIdAndDelete(req.params.id);
@@ -57,6 +60,22 @@ router.delete("/:id",async(req,res,next)=>{
             res.status(404).json({message:"Flight not Found."})
         }else{
             res.json(deletedFlight);
+        }
+    } catch (error) {
+       next(error); 
+    }
+})
+
+
+// Route to get all the flight less then specified price
+router.get("/:price", async(req,res,next)=>{
+    try {
+        const price = req.params.price;
+        const belowPrice = await Flight.find({price:{$lt:price}})
+        if(!belowPrice){
+            res.status(404).json({message:"No Fligh Found."})
+        }else{
+            res.json(belowPrice);
         }
     } catch (error) {
        next(error); 
