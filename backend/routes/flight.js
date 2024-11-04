@@ -4,7 +4,7 @@ const Flight = require('../models/Flight')
 // allows to define routes in seperate file
 const router = express.Router(); 
 
-// list all the flights
+// Get all the flights
 router.get('/',async (req,res,next)=>{
     try {
         const flights = await Flight.find();
@@ -15,7 +15,7 @@ router.get('/',async (req,res,next)=>{
 
 })
 
-// get a flight by id
+// Find flight based on flight number
 router.get("/:id",async (req,res,next)=>{
     try {
         const flightNumber = req.params.id;
@@ -26,10 +26,10 @@ router.get("/:id",async (req,res,next)=>{
     }
 })
 
-// Update a flight
-router.put("/:id",async (req,res,next)=>{
+// update flight by flightNumber
+router.put("/:flightNumber",async (req,res,next)=>{
     try {
-        const updatedFlight = await Flight.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true});
+        const updatedFlight = await Flight.findOneAndUpdate({flightNumber:req.params.flightNumber},req.body,{new:true,runValidators:true});
         if(!updatedFlight){
             res.status(404).json({message:"Flight not Found"})
         }else{
@@ -40,7 +40,6 @@ router.put("/:id",async (req,res,next)=>{
     }
 })
 
-// Add a new flight
 router.post('/',async (req,res,next)=>{
     try {
         const flightData = req.body;
@@ -52,10 +51,10 @@ router.post('/',async (req,res,next)=>{
     }
 })
 
-// route to delete a flight based on it's id
+
 router.delete("/:id",async(req,res,next)=>{
     try {
-        const deletedFlight = await Flight.findByIdAndDelete(req.params.id);
+        const deletedFlight = await Flight.findByIdAndUpdate(req.params.id);
         if(!deletedFlight){
             res.status(404).json({message:"Flight not Found."})
         }else{
