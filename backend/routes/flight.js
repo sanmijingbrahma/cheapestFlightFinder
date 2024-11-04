@@ -25,6 +25,19 @@ router.get("/:id",async (req,res,next)=>{
     }
 })
 
+router.put("/:id",async (req,res,next)=>{
+    try {
+        const updatedFlight = await Flight.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true});
+        if(!updatedFlight){
+            res.status(404).json({message:"Flight not Found"})
+        }else{
+            res.json(updatedFlight);
+        }
+    } catch (error) {
+       next(error); 
+    }
+})
+
 router.post('/',async (req,res,next)=>{
     try {
         const flightData = req.body;
