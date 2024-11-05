@@ -27,6 +27,14 @@ const flightSchema = new mongoose.Schema(
         arrivalTime:{
             type:String,
             required:[true,"Arrival Time is required."],
+            validate:{
+
+            function(value){
+                return value>this.departureTime;
+            },
+        message:"Arrival Time should be greater than departure time."
+    }
+
         },
         price:{
             type:Number,
