@@ -67,19 +67,19 @@ router.delete("/:id",async(req,res,next)=>{
 
 
 // Route to get all the flight less then specified price
-router.get("/:price", async(req,res,next)=>{
-    try {
-        const price = req.params.price;
-        const belowPrice = await Flight.find({price:{$lt:price}})
-        if(!belowPrice){
-            res.status(404).json({message:"No Fligh Found."})
-        }else{
-            res.json(belowPrice);
-        }
-    } catch (error) {
-       next(error); 
-    }
-})
+// router.get("/:price", async(req,res,next)=>{
+//     try {
+//         const price = Number(req.params.price);
+//         const belowPrice = await Flight.find({price:{$lt:price}})
+//         if(belowPrice.length == 0){
+//             res.status(404).json({message:"No Flight Found."})
+//         }else{
+//             res.json(belowPrice);
+//         }
+//     } catch (error) {
+//        next(error); 
+//     }
+// }) 
 
 
 module.exports = router;
